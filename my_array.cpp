@@ -1,8 +1,6 @@
 #include <iostream>
 #include <initializer_list>
 
-
-
 template<class T>
 class My_vector
 {
@@ -51,9 +49,36 @@ class My_vector
         }
     }
 
+    My_vector(My_vector &&vec): m_vector{vec.m_vector}, m_length{vec.m_length}, m_capacity{vec.m_capacity}
+    {
+        vec.m_vector = nullptr;
+        vec.m_length = 0;
+        vec.m_capacity = 0;
+    }
+
     ~My_vector()
     {
         delete[] m_vector;
+    }
+
+    My_vector& operator=(My_vector &&vec)
+    {
+        if(this == &vec)
+        {
+            return *this;
+        }
+
+        delete[] m_vector;
+
+        m_vector = vec.m_vector;
+        m_length = vec.m_length;
+        m_capacity = vec.m_capacity;
+
+        vec.m_vector = nullptr;
+        vec.m_length = 0;
+        vec.m_capacity = 0;
+
+        return *this;
     }
 
     My_vector& operator=(const My_vector &vec)
