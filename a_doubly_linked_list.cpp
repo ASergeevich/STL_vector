@@ -1,4 +1,4 @@
- #ifndef MY_LIST
+#ifndef MY_LIST
 #define MY_LIST
 
 #include <iostream>
@@ -107,11 +107,19 @@ class My_List
         {
             return;
         }
+        --m_size;
+
+        if(m_closing == m_head)
+        {
+            delete m_head;
+            m_closing = nullptr;
+            m_head = nullptr;
+            return;
+        }
 
         Element<S> *current_element = m_closing;
-
-        m_closing->m_previous->m_next = nullptr;
         m_closing = current_element->m_previous;
+        m_closing->m_next = nullptr;
         delete current_element;
     }
 
@@ -119,6 +127,15 @@ class My_List
     {
         if(isEmpty())
         {
+            return;
+        }
+        --m_size;
+
+        if(m_head == m_closing)
+        {
+            delete m_closing;
+            m_head = nullptr;
+            m_closing = nullptr;
             return;
         }
 
