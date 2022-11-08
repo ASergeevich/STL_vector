@@ -141,9 +141,7 @@ class My_list
     My_list& operator=(const std::initializer_list<S> &list)
     {
         clear();
-
-        Element<S> *current_element{nullptr};
-
+  
         for(const auto &element: list)
         {
             push_back(element);
